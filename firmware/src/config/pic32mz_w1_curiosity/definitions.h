@@ -63,7 +63,7 @@
 #include "system/debug/sys_debug.h"
 #include "peripheral/nvm/plib_nvm.h"
 #include "app.h"
-
+#include "../../coretimer.h"
 
 
 // DOM-IGNORE-BEGIN

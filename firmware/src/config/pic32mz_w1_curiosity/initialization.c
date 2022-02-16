@@ -246,7 +246,7 @@ void SYS_Initialize ( void* data )
 
     if (bootloader_Trigger() == false)
     {
-        run_Application();
+       run_Application();
     }
 
 	BSP_Initialize();

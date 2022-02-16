@@ -56,12 +56,32 @@
 // Section: Main Entry Point
 // *****************************************************************************
 // *****************************************************************************
+uint32_t ct_wait=0;
+uint32_t ct_count=0;
 
 int main ( void )
 {
+    GPIO_Initialize();
+    ct_wait = APP_CoreTimer_Read();
+
+    for (ct_count = 0; ct_count < 5; ) {
+        if (APP_CoreTimer_IsTimeout(&ct_wait, CORETIMER_SET_TIME(0.05)) == true){
+            LED_TOGGLE();
+            ct_count++;
+        }
+    }            
+    
     /* Initialize all modules */
     SYS_Initialize ( NULL );
 
+    for (ct_count = 0; ct_count < 5; ) {
+        if (APP_CoreTimer_IsTimeout(&ct_wait, CORETIMER_SET_TIME(0.5)) == true){
+            LED_TOGGLE();
+            ct_count++;
+        }
+    }  
+
+    
     while ( true )
     {
         /* Maintain state machines of all polled MPLAB Harmony modules. */
