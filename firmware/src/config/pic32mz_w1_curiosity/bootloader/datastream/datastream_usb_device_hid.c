@@ -239,6 +239,13 @@ int DATASTREAM_Data_Read(DATASTREAM_HANDLE handle, uint8_t *buffer, const uint32
     usbHIDData.rxMaxSize = rxSize;
     usbHIDData.rxCurSize = 0;
     usbHIDData.currDir = RX;
+    {
+        static int counter = 0;
+        if (++counter == 100) {
+            LED_GREEN_Toggle();
+            counter = 0;
+        }
+    }
     return(0);
 }
 
