@@ -215,6 +215,26 @@ const DRV_USBFS_INIT drvUSBFSInit =
 // *****************************************************************************
 // *****************************************************************************
 
+/*******************************************************************************
+  Function:
+    void STDIO_BufferModeSet ( void )
+
+  Summary:
+    Sets the buffering mode for stdin and stdout
+
+  Remarks:
+ ********************************************************************************/
+void STDIO_BufferModeSet(void)
+{
+
+    /* Make stdin unbuffered */
+    setbuf(stdin, NULL);
+
+    /* Make stdout unbuffered */
+    setbuf(stdout, NULL);
+}
+
+
 
 
 /*******************************************************************************
@@ -240,9 +260,14 @@ void SYS_Initialize ( void* data )
 
 
 
-	GPIO_Initialize();
+	GPIO_Initialize();    
 
-
+    /*
+    STDIO_BufferModeSet();
+    UART1_Initialize();    
+    printf("Bootloader start!\n\r");
+    */
+      
     if (bootloader_Trigger() == false) {
         /* Program Memory Erase Block 
          * size is 4k ->      0x0000_1000
@@ -253,11 +278,13 @@ void SYS_Initialize ( void* data )
          * Magic Code         0x12345678
          */
         uint32_t *pui = (uint32_t*) 0x900FE000;
-        if (*pui == 0x12345678) {
+        if (*pui == 0x12345678) {                        
             run_Application();
         }
     }
-
+    
+    
+    LED_ON();
 	BSP_Initialize();
     NVM_Initialize();
 

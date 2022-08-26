@@ -38,6 +38,7 @@
 
 #include "bootloader/datastream/datastream.h"
 #include "usb/usb_device_hid.h"
+#include "../../peripheral/gpio/plib_gpio.h"
 
 typedef struct
 {

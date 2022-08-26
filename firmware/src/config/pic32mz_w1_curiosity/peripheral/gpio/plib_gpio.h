@@ -62,6 +62,24 @@
 // *****************************************************************************
 
 
+/*** Macros for LED_RED pin ***/
+#define LED_RED_Set()               (LATKSET = (1<<1))
+#define LED_RED_Clear()             (LATKCLR = (1<<1))
+#define LED_RED_Toggle()            (LATKINV= (1<<1))
+#define LED_RED_OutputEnable()      (TRISKCLR = (1<<1))
+#define LED_RED_InputEnable()       (TRISKSET = (1<<1))
+#define LED_RED_Get()               ((PORTK >> 1) & 0x1)
+#define LED_RED_PIN                  GPIO_PIN_RK1
+
+/*** Macros for LED_GREEN pin ***/
+#define LED_GREEN_Set()               (LATKSET = (1<<3))
+#define LED_GREEN_Clear()             (LATKCLR = (1<<3))
+#define LED_GREEN_Toggle()            (LATKINV= (1<<3))
+#define LED_GREEN_OutputEnable()      (TRISKCLR = (1<<3))
+#define LED_GREEN_InputEnable()       (TRISKSET = (1<<3))
+#define LED_GREEN_Get()               ((PORTK >> 3) & 0x1)
+#define LED_GREEN_PIN                  GPIO_PIN_RK3
+
 
 // *****************************************************************************
 /* GPIO Port

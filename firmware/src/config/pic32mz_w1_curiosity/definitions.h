@@ -48,6 +48,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include "peripheral/uart/plib_uart1.h"
 #include "usb/usb_device_hid.h"
 #include "usb/usb_hid.h"
 #include "bsp/bsp.h"

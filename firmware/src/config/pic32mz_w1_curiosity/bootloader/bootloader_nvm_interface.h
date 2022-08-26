@@ -54,9 +54,10 @@
 
 #define FLASH_END_ADDRESS       (FLASH_START + FLASH_LENGTH)
 
-#define APP_START_ADDRESS       ((uint32_t)(PA_TO_KVA0(0x10011000UL)))    //0x10000000UL)))
+#define APP_START_ADDRESS       ((uint32_t)(PA_TO_KVA0(0x10000000UL)))
 
-
+#define APP_RESET_ADDRESS       0x90011000UL
+        
 #define DATA_RECORD             0
 #define END_OF_FILE_RECORD      1
 #define EXT_SEG_ADRS_RECORD     2

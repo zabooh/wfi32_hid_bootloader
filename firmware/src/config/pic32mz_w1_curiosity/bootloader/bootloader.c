@@ -165,20 +165,21 @@ void bootloader_TriggerReset(void)
     (void)RSWRST;
 }
 
+
 void run_Application(void)
 {
-    uint32_t msp            = *(uint32_t *)(APP_START_ADDRESS);
+    uint32_t msp            = *(uint32_t *)(APP_RESET_ADDRESS);
 
     void (*fptr)(void);
 
     /* Set default to APP_RESET_ADDRESS */
-    fptr = (void (*)(void))APP_START_ADDRESS;
+    fptr = (void (*)(void))APP_RESET_ADDRESS;
 
     if (msp == 0xffffffff)
     {
         return;
     }
-
+    
     fptr();
 }
 

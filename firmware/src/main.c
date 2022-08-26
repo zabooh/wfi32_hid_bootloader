@@ -50,7 +50,7 @@
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
 
-
+    void dbg_printf(const char* format, ...);
 // *****************************************************************************
 // *****************************************************************************
 // Section: Main Entry Point
@@ -73,6 +73,55 @@ int main ( void )
     return ( EXIT_FAILURE );
 }
 
+
+void dbg_init() {
+    /* Set up UxMODE bits */
+    /* STSEL  = 0*/
+    /* PDSEL = 0 */
+    /* BRGH = 1 */
+    /* RXINV = 0 */
+    /* ABAUD = 0 */
+    /* LPBACK = 0 */
+    /* WAKE = 0 */
+    /* SIDL = 0 */
+    /* RUNOVF = 0 */
+    /* CLKSEL = 0 */
+    /* SLPEN = 0 */
+    /* UEN = 0 */
+    U1MODE = 0x8;
+
+    /* Enable UART1 Receiver, Transmitter and TX Interrupt selection */
+    U1STASET = (_U1STA_UTXEN_MASK | _U1STA_URXEN_MASK );
+
+    /* BAUD Rate register Setup */
+    U1BRG = 216;
+
+    /* Disable Interrupts */
+    IEC1CLR = _IEC1_U1EIE_MASK;
+    IEC1CLR = _IEC1_U1RXIE_MASK;
+    IEC1CLR = _IEC1_U1TXIE_MASK;
+
+    /* Turn ON UART1 */
+    U1MODESET = _U1MODE_ON_MASK;
+
+}
+
+    void dbg_printf(const char* format, ...) {
+#define PRINT_BUFF (64)
+    char OutputBuffer[PRINT_BUFF];
+    int ix = 0;
+    size_t len = 0;
+    va_list args = {0};
+    va_start(args, format);
+    len = vsnprintf(OutputBuffer, PRINT_BUFF, format, args);
+    va_end(args);
+
+    while (len) {
+        while (U1STAbits.UTXBF == 1);
+        U1TXREG = OutputBuffer[ix++];
+        len--;
+    }
+}
 
 /*******************************************************************************
  End of File

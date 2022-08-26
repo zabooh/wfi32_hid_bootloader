@@ -167,7 +167,7 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            LED_ON();
+            //LED_ON();
             break;
         }
 
